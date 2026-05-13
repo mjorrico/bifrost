@@ -1,6 +1,6 @@
 services:
   bifrost:
-    image: maximhq/bifrost:v1.4.18
+    image: maximhq/bifrost:v1.5.2
     container_name: bifrost
     env_file:
       - .env
@@ -14,9 +14,9 @@ services:
     deploy:
       resources:
         limits:
-          memory: 128M
+          memory: 256M
         reservations:
-          memory: 64M
+          memory: 128M
 
 networks:
   pgvector_network:

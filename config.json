@@ -22,7 +22,31 @@
                 "name": "Master Bifrost Virtual Key",
                 "description": "This is the master virtual key for Bifrost",
                 "is_active": true,
-                "value": "env.BIFROST_MASTER_KEY"
+                "value": "env.BIFROST_MASTER_KEY",
+                "provider_configs": [
+                    {
+                        "provider": "bedrock",
+                        "weight": 0.5,
+                        "allowed_models": [
+                            "minimax.minimax-m2.1",
+                            "minimax.minimax-m2.5",
+                            "us.amazon.nova-lite-v1:0",
+                            "us.amazon.nova-pro-v1:0",
+                            "zai.glm-4.7"
+                        ],
+                        "key_ids": ["bedrock-iam-key"]
+                    },
+                    {
+                        "provider": "modelark",
+                        "weight": 0.5,
+                        "allowed_models": [
+                            "seed-2-0-pro-260328",
+                            "glm-4-7-251222",
+                            "deepseek-v3-2-251201"
+                        ],
+                        "key_ids": ["modelark-key-1"]
+                    }
+                ]
             }
         ]
     },
@@ -54,57 +78,53 @@
         "bedrock": {
             "keys": [
                 {
-                    "name": "bedrock-default",
+                    "name": "Bedrock IAM Key",
+                    "id": "bedrock-iam-key",
                     "models": [
-                        "minimax-m2.1",
-                        "minimax-m2.5",
-                        "nova-lite",
-                        "nova-pro",
-                        "glm-4.7"
+                        "minimax.minimax-m2.1",
+                        "minimax.minimax-m2.5",
+                        "us.amazon.nova-lite-v1:0",
+                        "us.amazon.nova-pro-v1:0",
+                        "zai.glm-4.7"
                     ],
                     "weight": 1.0,
                     "bedrock_key_config": {
                         "access_key": "env.AWS_ACCESS_KEY_ID",
                         "secret_key": "env.AWS_SECRET_ACCESS_KEY",
-                        "region": "env.AWS_REGION",
-                        "deployments": {
-                            "minimax-m2.1": "minimax.minimax-m2.1",
-                            "minimax-m2.5": "minimax.minimax-m2.5",
-                            "nova-lite": "us.amazon.nova-lite-v1:0",
-                            "nova-pro": "us.amazon.nova-pro-v1:0",
-                            "glm-4.7": "zai.glm-4.7"
-                        }
+                        "region": "env.AWS_REGION"
                     }
                 }
             ]
         },
-        "anthropic": {
+        "modelark": {
             "keys": [
                 {
-                    "name": "anthropic-personal-key",
-                    "models": [
-                        "claude-opus-4-6",
-                        "claude-sonnet-4-6",
-                        "claude-haiku-4-5"
-                    ],
-                    "weight": 1.0,
-                    "value": "env.ANTHROPIC_API_KEY"
-                }
-            ]
-        },
-        "openai": {
-            "keys": [
-                {
-                    "name": "modelark-key-1",
+                    "name": "Modelark Key Gratis",
+                    "id": "modelark-key-1",
                     "value": "env.MODELARK_API_KEY",
                     "models": [
-                        "*"
+                        "seed-2-0-pro-260328",
+                        "glm-4-7-251222",
+                        "deepseek-v3-2-251201"
                     ],
                     "weight": 1.0
                 }
             ],
             "network_config": {
-                "base_url": "https://ark.ap-southeast.bytepluses.com/api/v3"
+                "base_url": "https://ark.ap-southeast.bytepluses.com/api/v3",
+                "default_request_timeout_in_seconds": 60
+            },
+            "custom_provider_config": {
+                "base_provider_type": "openai",
+                "allowed_requests": {
+                    "chat_completion": true,
+                    "chat_completion_stream": true
+                },
+                "request_path_overrides": {
+                    "chat_completion": "/chat/completions",
+                    "chat_completion_stream": "/chat/completions",
+                    "models": "/models"
+                }
             }
         }
     }
