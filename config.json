@@ -74,6 +74,29 @@
             "ssl_mode": "disable"
         }
     },
+    "governance": {
+        "pricing_overrides": [
+            {
+                "id": "550e8400-e29b-41d4-a716-446655440000",
+                "name": "Global GPT-4o rate",
+                "scope_kind": "global",
+                "match_type": "exact",
+                "pattern": "gpt-4o",
+                "request_types": ["chat_completion"],
+                "pricing_patch": "{\"input_cost_per_token\":0.0000025,\"output_cost_per_token\":0.00001}"
+            },
+            {
+                "id": "660e8400-e29b-41d4-a716-446655440001",
+                "name": "All Claude models for prod VK",
+                "scope_kind": "virtual_key",
+                "virtual_key_id": "vk-abc123",
+                "match_type": "wildcard",
+                "pattern": "claude-3*",
+                "request_types": ["chat_completion"],
+                "pricing_patch": "{\"input_cost_per_token\":0.000003,\"output_cost_per_token\":0.000015}"
+            }
+        ]
+    },
     "providers": {
         "bedrock": {
             "keys": [
