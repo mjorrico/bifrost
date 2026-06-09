@@ -42,7 +42,9 @@
                         "allowed_models": [
                             "seed-2-0-pro-260328",
                             "glm-4-7-251222",
-                            "deepseek-v3-2-251201"
+                            "deepseek-v3-2-251201",
+                            "deepseek-v4-pro-260425",
+                            "deepseek-v4-flash-260425"
                         ],
                         "key_ids": ["modelark-key-1"]
                     }
@@ -128,7 +130,9 @@
                     "models": [
                         "seed-2-0-pro-260328",
                         "glm-4-7-251222",
-                        "deepseek-v3-2-251201"
+                        "deepseek-v3-2-251201",
+                        "deepseek-v4-pro-260425",
+                        "deepseek-v4-flash-260425"
                     ],
                     "weight": 1.0
                 }
